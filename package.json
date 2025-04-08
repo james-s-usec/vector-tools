@@ -1,0 +1,30 @@
+{
+  "name": "vector-tools",
+  "version": "0.1.0",
+  "description": "A collection of tools for vector manipulation and processing",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/vector.test.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-organization/vector-tools.git"
+  },
+  "keywords": [
+    "vector",
+    "math",
+    "3d",
+    "tools",
+    "manipulation"
+  ],
+  "author": "James Swanson <james.swanson@usengineering.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-organization/vector-tools/issues"
+  },
+  "homepage": "https://github.com/your-organization/vector-tools#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
