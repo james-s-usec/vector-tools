@@ -31,6 +31,10 @@ npm test
 
 For detailed API documentation, see the [API docs](./docs/api.md).
 
+## Security
+
+All commits to this repository are signed with GPG for enhanced security and verification.
+
 ## License
 
 [Specify your license here]
