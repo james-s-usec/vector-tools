@@ -20,8 +20,16 @@ This repository contains utilities and libraries for working with vector data, p
 git clone https://github.com/your-organization/vector-tools.git
 cd vector-tools
 
-# Setup instructions will be added here
+# Install dependencies
+npm install
+
+# Run tests
+npm test
 ```
+
+## Documentation
+
+For detailed API documentation, see the [API docs](./docs/api.md).
 
 ## License
 
