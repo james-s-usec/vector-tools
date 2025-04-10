@@ -1,0 +1,2508 @@
+[
+  {
+    "name": "Boiler Survey",
+    "description": "Survey template for Boilers",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "year": {
+        "type": "text",
+        "label": "Year"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "status": {
+        "type": "text",
+        "label": "Status"
+      },
+      "modelNo": {
+        "type": "text",
+        "label": "Model Number"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "serialNo": {
+        "type": "text",
+        "label": "Serial Number"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "oatLockout": {
+        "type": "text",
+        "label": "OAT Lockout"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "controlType": {
+        "type": "select",
+        "label": "Control Type"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "manufacturer": {
+        "type": "text",
+        "label": "Manufacturer"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "onOffControlSchedule": {
+        "type": "text",
+        "label": "ON/OFF Control & Schedule"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "fuelType": {
+        "type": "select",
+        "label": "Fuel Type"
+      },
+      "boilerType": {
+        "type": "select",
+        "label": "Boiler Type"
+      },
+      "heatingMedium": {
+        "type": "select",
+        "label": "Heating Medium"
+      },
+      "burnerCondition": {
+        "type": "select",
+        "label": "Burner Condition"
+      },
+      "designInformation": {
+        "type": "object",
+        "label": "Design Information"
+      },
+      "burnerNameplateData": {
+        "type": "object",
+        "label": "Burner Nameplate Data"
+      },
+      "combustionInformation": {
+        "type": "object",
+        "label": "Combustion Information"
+      },
+      "heatExchangerCondition": {
+        "type": "select",
+        "label": "Heat Exchanger Condition"
+      },
+      "safetyControlsOperating": {
+        "type": "radio",
+        "label": "Safety Controls Operating"
+      }
+    }
+  },
+  {
+    "name": "Chiller Survey",
+    "description": "Survey template for Chillers",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "year": {
+        "type": "text",
+        "label": "Year"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "status": {
+        "type": "text",
+        "label": "Status"
+      },
+      "modelNo": {
+        "type": "text",
+        "label": "Model Number"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "serialNo": {
+        "type": "text",
+        "label": "Serial Number"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "oatLockout": {
+        "type": "text",
+        "label": "OAT Lockout"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "controlType": {
+        "type": "select",
+        "label": "Control Type"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "manufacturer": {
+        "type": "text",
+        "label": "Manufacturer"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "onOffControlSchedule": {
+        "type": "text",
+        "label": "ON/OFF Control & Schedule"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "chillerType": {
+        "type": "select",
+        "label": "Chiller Type"
+      },
+      "variableSpeed": {
+        "type": "radio",
+        "label": "Variable Speed"
+      },
+      "compressorType": {
+        "type": "select",
+        "label": "Compressor Type"
+      },
+      "refrigerantType": {
+        "type": "select",
+        "label": "Refrigerant Type"
+      },
+      "designInformation": {
+        "type": "object",
+        "label": "Design Information"
+      },
+      "heatRejectionType": {
+        "type": "select",
+        "label": "Heat Rejection Type"
+      },
+      "condenserCondition": {
+        "type": "select",
+        "label": "Condenser Condition"
+      },
+      "compressorCondition": {
+        "type": "select",
+        "label": "Compressor Condition"
+      },
+      "evaporatorCondition": {
+        "type": "select",
+        "label": "Evaporator Condition"
+      }
+    }
+  },
+  {
+    "name": "Pump Survey",
+    "description": "Survey template for Pumps",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "year": {
+        "type": "text",
+        "label": "Year"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "status": {
+        "type": "text",
+        "label": "Status"
+      },
+      "modelNo": {
+        "type": "text",
+        "label": "Model Number"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "serialNo": {
+        "type": "text",
+        "label": "Serial Number"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "oatLockout": {
+        "type": "text",
+        "label": "OAT Lockout"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "controlType": {
+        "type": "select",
+        "label": "Control Type"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "manufacturer": {
+        "type": "text",
+        "label": "Manufacturer"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "onOffControlSchedule": {
+        "type": "text",
+        "label": "ON/OFF Control & Schedule"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "gpm": {
+        "type": "number",
+        "label": "GPM (Gallons Per Minute)"
+      },
+      "rpm": {
+        "type": "number",
+        "label": "RPM"
+      },
+      "head": {
+        "type": "number",
+        "label": "Head (Feet)"
+      },
+      "pumpType": {
+        "type": "select",
+        "label": "Pump Type"
+      },
+      "controlOn": {
+        "type": "select",
+        "label": "Control On"
+      },
+      "controlType": {
+        "type": "select",
+        "label": "Control Type"
+      },
+      "serviceType": {
+        "type": "select",
+        "label": "Service Type"
+      },
+      "motorCondition": {
+        "type": "select",
+        "label": "Motor Condition"
+      },
+      "dpSetpointReset": {
+        "type": "object",
+        "label": "dP Setpoint/Reset"
+      },
+      "impellerCondition": {
+        "type": "select",
+        "label": "Impeller Condition"
+      }
+    }
+  },
+  {
+    "name": "Controls Survey",
+    "description": "Survey template for Building Control Systems",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "serviceContract": {
+        "type": "radio",
+        "label": "Service Contract"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "systemOperational": {
+        "type": "radio",
+        "label": "System Operational"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "serviceContractorName": {
+        "type": "text",
+        "label": "Service Contractor Name"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "serviceContractorPhone": {
+        "type": "text",
+        "label": "Service Contractor Phone"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "nameplateData": {
+        "type": "object",
+        "label": "Nameplate Data"
+      },
+      "generalControlSystem": {
+        "type": "object",
+        "label": "General Control System"
+      },
+      "investigationPhaseTesting": {
+        "type": "object",
+        "label": "Investigation Phase Testing"
+      }
+    }
+  },
+  {
+    "name": "RTU Survey",
+    "description": "Survey template for Rooftop Units",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "year": {
+        "type": "text",
+        "label": "Year"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "modelNo": {
+        "type": "text",
+        "label": "Model Number"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "serialNo": {
+        "type": "text",
+        "label": "Serial Number"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "manufacturer": {
+        "type": "text",
+        "label": "Manufacturer"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "fanControl": {
+        "type": "object",
+        "label": "Fan Control"
+      },
+      "mzuControl": {
+        "type": "object",
+        "label": "MZU Control"
+      },
+      "systemType": {
+        "type": "select",
+        "label": "System Type"
+      },
+      "returnAirPath": {
+        "type": "select",
+        "label": "Return Air Path"
+      },
+      "supplyFanData": {
+        "type": "object",
+        "label": "Supply Fan Data"
+      },
+      "compressorData": {
+        "type": "object",
+        "label": "Compressor Data"
+      },
+      "fanArrangement": {
+        "type": "select",
+        "label": "Fan Arrangement"
+      },
+      "coolingCoilData": {
+        "type": "object",
+        "label": "Cooling Coil Data"
+      },
+      "filterCondition": {
+        "type": "select",
+        "label": "Filter Condition"
+      },
+      "heatingCoilData": {
+        "type": "object",
+        "label": "Heating Coil Data"
+      },
+      "condenserFanData": {
+        "type": "object",
+        "label": "Condenser Fan Data"
+      },
+      "outsideAirControl": {
+        "type": "object",
+        "label": "Outside Air Control"
+      },
+      "controlInformation": {
+        "type": "object",
+        "label": "Control Information"
+      },
+      "supplyMixedAirTemperatureControl": {
+        "type": "object",
+        "label": "Supply/Mixed Air Temperature Control"
+      }
+    }
+  },
+  {
+    "name": "Zone Terminal Survey",
+    "description": "Survey template for Zone Terminal Equipment",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General Unit Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      }
+    },
+    "specificFields": {
+      "cooling": {
+        "type": "select",
+        "label": "Cooling"
+      },
+      "heating": {
+        "type": "select",
+        "label": "Heating"
+      },
+      "systemType": {
+        "type": "select",
+        "label": "Type"
+      },
+      "nameplateData": {
+        "type": "object",
+        "label": "Zone Equipment Nameplate Data"
+      },
+      "controlInformation": {
+        "type": "object",
+        "label": "Control Information"
+      },
+      "generalZoneControl": {
+        "type": "object",
+        "label": "General Zone Control"
+      },
+      "onOffControlSchedule": {
+        "type": "object",
+        "label": "ON/OFF Control & Schedule"
+      },
+      "zoneTemperatureControl": {
+        "type": "object",
+        "label": "Zone Temperature Control"
+      }
+    }
+  },
+  {
+    "name": "Lighting Survey",
+    "description": "Survey template for Lighting Systems",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "recommendReplacement": {
+        "type": "radio",
+        "label": "Recommend Replacement"
+      },
+      "lightingDwgsAvailable": {
+        "type": "radio",
+        "label": "Lighting Drawings Available"
+      }
+    },
+    "specificFields": {
+      "lampType": {
+        "type": "select",
+        "label": "Lamp Type"
+      },
+      "ballastType": {
+        "type": "select",
+        "label": "Ballast Type"
+      },
+      "fixtureType": {
+        "type": "select",
+        "label": "Fixture Type"
+      },
+      "lightLevels": {
+        "type": "array",
+        "label": "Light Levels"
+      },
+      "estimatedWSF": {
+        "type": "text",
+        "label": "Estimated W/SF"
+      },
+      "wattsPerLamp": {
+        "type": "text",
+        "label": "Watts per Lamp"
+      },
+      "lampsPerFixture": {
+        "type": "text",
+        "label": "Lamps per Fixture"
+      },
+      "controlInformation": {
+        "type": "object",
+        "label": "Control Information"
+      },
+      "fixtureDescription": {
+        "type": "text",
+        "label": "Fixture Description"
+      }
+    }
+  },
+  {
+    "name": "AHU Survey",
+    "description": "Survey template for Air Handling Units",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "year": {
+        "type": "text",
+        "label": "Year"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "status": {
+        "type": "text",
+        "label": "Status"
+      },
+      "modelNo": {
+        "type": "text",
+        "label": "Model Number"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "serialNo": {
+        "type": "text",
+        "label": "Serial Number"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "oatLockout": {
+        "type": "text",
+        "label": "OAT Lockout"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "controlType": {
+        "type": "select",
+        "label": "Control Type"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "manufacturer": {
+        "type": "text",
+        "label": "Manufacturer"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "controlDwgsAvailable": {
+        "type": "radio",
+        "label": "Control Drawings Available"
+      },
+      "onOffControlSchedule": {
+        "type": "text",
+        "label": "ON/OFF Control & Schedule"
+      },
+      "dataLoggerForInvPhase": {
+        "type": "radio",
+        "label": "Data Logger For Investigation Phase"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "General System Condition"
+      },
+      "maintenanceLogAvailable": {
+        "type": "radio",
+        "label": "Maintenance Log Available"
+      },
+      "mechanicalDwgsAvailable": {
+        "type": "radio",
+        "label": "Mechanical Drawings Available"
+      },
+      "controlSequencesAvailable": {
+        "type": "radio",
+        "label": "Control Sequences Available"
+      },
+      "recommendEquipReplacement": {
+        "type": "radio",
+        "label": "Recommend Equipment Replacement"
+      },
+      "controlSystemUsedForTesting": {
+        "type": "radio",
+        "label": "Control System Used For Testing"
+      }
+    },
+    "specificFields": {
+      "systemType": {
+        "type": "select",
+        "label": "System Type"
+      },
+      "returnAirPath": {
+        "type": "select",
+        "label": "Return Air Path"
+      },
+      "supplyFanData": {
+        "type": "object",
+        "label": "Supply Fan Data"
+      },
+      "fanArrangement": {
+        "type": "select",
+        "label": "Fan Arrangement"
+      },
+      "coolingCoilData": {
+        "type": "object",
+        "label": "Cooling Coil Data"
+      },
+      "filterCondition": {
+        "type": "select",
+        "label": "Filter Condition"
+      },
+      "heatingCoilData": {
+        "type": "object",
+        "label": "Heating Coil Data"
+      },
+      "outsideAirControl": {
+        "type": "object",
+        "label": "Outside Air Control"
+      },
+      "returnFanOperating": {
+        "type": "radio",
+        "label": "Return Fan Operating"
+      },
+      "supplyFanOperating": {
+        "type": "radio",
+        "label": "Supply Fan Operating"
+      },
+      "coolingCoilCondition": {
+        "type": "select",
+        "label": "Cooling Coil Condition"
+      },
+      "heatingCoilCondition": {
+        "type": "select",
+        "label": "Heating Coil Condition"
+      }
+    }
+  },
+  {
+    "name": "Exhaust Fan Survey",
+    "description": "Survey template for Exhaust Fans",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "tag": {
+        "type": "text",
+        "label": "Tag"
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "backUp": {
+        "type": "radio",
+        "label": "Back Up"
+      },
+      "serves": {
+        "type": "text",
+        "label": "Serves"
+      },
+      "location": {
+        "type": "text",
+        "label": "Location"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "General Notes"
+      },
+      "unitOperating": {
+        "type": "radio",
+        "label": "Unit Operating During Survey"
+      },
+      "equipmentPicture": {
+        "type": "file",
+        "label": "Equipment Photo"
+      },
+      "issuesLogSummary": {
+        "type": "textarea",
+        "label": "Issues Log Summary"
+      },
+      "generalSystemCondition": {
+        "type": "select",
+        "label": "Condition"
+      }
+    },
+    "specificFields": {
+      "schedule": {
+        "type": "object",
+        "label": "Schedule Reference # or Weekly Schedule"
+      },
+      "measuredData": {
+        "type": "object",
+        "label": "Measured Data"
+      },
+      "buildingPressure": {
+        "type": "select",
+        "label": "Overall Building Pressure"
+      },
+      "fanNameplateData": {
+        "type": "object",
+        "label": "Fan Nameplate Data"
+      },
+      "motorNameplateData": {
+        "type": "object",
+        "label": "Motor Nameplate Data"
+      }
+    }
+  },
+  {
+    "name": "Equipment Summaries Survey",
+    "description": "Survey template for Equipment Summaries",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "Notes"
+      }
+    },
+    "specificFields": {
+      "equipmentSummary": {
+        "type": "object",
+        "label": "Equipment Summary"
+      }
+    }
+  },
+  {
+    "name": "Building Information Survey",
+    "description": "Survey template for Building Information",
+    "baseFields": {
+      "markups": {
+        "type": "array",
+        "label": "Markups & Diagrams",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "validation": {
+              "required": true
+            }
+          },
+          "markup": {
+            "type": "file",
+            "label": "Markup/Diagram",
+            "validation": {
+              "required": true
+            }
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyPhotos": {
+        "type": "array",
+        "label": "Survey Photos",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "photo": {
+            "type": "file",
+            "label": "Photo",
+            "validation": {
+              "required": true
+            }
+          },
+          "location": {
+            "type": "text",
+            "label": "Location",
+            "validation": {
+              "required": false
+            }
+          },
+          "description": {
+            "type": "text",
+            "label": "Description",
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "surveyNotes": {
+        "type": "array",
+        "label": "Survey Notes",
+        "validation": {
+          "required": false
+        },
+        "itemTemplate": {
+          "note": {
+            "type": "textarea",
+            "label": "Note",
+            "validation": {
+              "required": true
+            }
+          },
+          "category": {
+            "type": "select",
+            "label": "Category",
+            "options": [
+              {
+                "label": "General",
+                "value": "GENERAL"
+              },
+              {
+                "label": "Issue",
+                "value": "ISSUE"
+              },
+              {
+                "label": "Recommendation",
+                "value": "RECOMMENDATION"
+              },
+              {
+                "label": "Observation",
+                "value": "OBSERVATION"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          },
+          "priority": {
+            "type": "select",
+            "label": "Priority",
+            "options": [
+              {
+                "label": "Low",
+                "value": "LOW"
+              },
+              {
+                "label": "Medium",
+                "value": "MEDIUM"
+              },
+              {
+                "label": "High",
+                "value": "HIGH"
+              }
+            ],
+            "validation": {
+              "required": false
+            }
+          }
+        }
+      },
+      "date": {
+        "type": "date",
+        "label": "Date"
+      },
+      "buildingNo": {
+        "type": "text",
+        "label": "Building Number"
+      },
+      "preparedBy": {
+        "type": "text",
+        "label": "Prepared By"
+      },
+      "generalNotes": {
+        "type": "textarea",
+        "label": "Notes"
+      }
+    },
+    "specificFields": {
+      "buildingInformation": {
+        "type": "object",
+        "label": "Building Information"
+      }
+    }
+  }
+]

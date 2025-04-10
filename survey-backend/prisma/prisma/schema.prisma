@@ -1,0 +1,767 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. CLASSIFICATION SYSTEMS
+model Omniclass {
+  id          Int                         @id @default(autoincrement())
+  code        String                      @unique
+  title       String
+  description String?
+  categories  EquipmentCategoriesOmniclass[]
+
+  @@map("omniclass")
+}
+
+model Uniformat {
+  id          Int                          @id @default(autoincrement())
+  code        String                       @unique
+  title       String
+  description String?
+  categories  EquipmentCategoriesUniformat[]
+
+  @@map("uniformat")
+}
+
+model Masterformat {
+  id          Int                             @id @default(autoincrement())
+  code        String                          @unique
+  title       String
+  description String?
+  categories  EquipmentCategoriesMasterformat[]
+
+  @@map("masterformat")
+}
+
+model CatalogSystem {
+  id                Int                        @id @default(autoincrement())
+  code              String                     @unique
+  title             String
+  description       String?
+  externalReference String?                    @map("external_reference")
+  categories        EquipmentCategoriesCatalog[]
+
+  @@map("catalog_system")
+}
+
+model McaaClassifications {
+  id                       Int                      @id @default(autoincrement())
+  systemCategory           String                   @map("system_category")
+  systemName               String                   @map("system_name")
+  subSystemType            String?                  @map("sub_system_type")
+  subSystemClassification  String?                  @map("sub_system_classification")
+  equipmentSize            String?                  @map("equipment_size")
+  notes                    String?
+  categories               EquipmentCategoriesMcaa[]
+
+  @@map("mcaa_classifications")
+}
+
+// 2. EQUIPMENT CATEGORIES
+model EquipmentCategory {
+  id                Int                             @id @default(autoincrement())
+  name              String                          @unique
+  description       String?
+  equipment         Equipment[]
+  omniclass         EquipmentCategoriesOmniclass[]
+  uniformat         EquipmentCategoriesUniformat[]
+  masterformat      EquipmentCategoriesMasterformat[]
+  catalog           EquipmentCategoriesCatalog[]
+  mcaa              EquipmentCategoriesMcaa[]
+
+  @@map("equipment_categories")
+}
+
+// Junction tables for many-to-many relationships
+model EquipmentCategoriesOmniclass {
+  categoryId  Int              @map("category_id")
+  omniclassId Int              @map("omniclass_id")
+  category    EquipmentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  omniclass   Omniclass        @relation(fields: [omniclassId], references: [id], onDelete: Restrict)
+
+  @@id([categoryId, omniclassId])
+  @@map("equipment_categories_omniclass")
+}
+
+model EquipmentCategoriesUniformat {
+  categoryId  Int              @map("category_id")
+  uniformatId Int              @map("uniformat_id")
+  category    EquipmentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  uniformat   Uniformat        @relation(fields: [uniformatId], references: [id], onDelete: Restrict)
+
+  @@id([categoryId, uniformatId])
+  @@map("equipment_categories_uniformat")
+}
+
+model EquipmentCategoriesMasterformat {
+  categoryId     Int              @map("category_id")
+  masterformatId Int              @map("masterformat_id")
+  category       EquipmentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  masterformat   Masterformat     @relation(fields: [masterformatId], references: [id], onDelete: Restrict)
+
+  @@id([categoryId, masterformatId])
+  @@map("equipment_categories_masterformat")
+}
+
+model EquipmentCategoriesCatalog {
+  categoryId Int              @map("category_id")
+  catalogId  Int              @map("catalog_id")
+  category   EquipmentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  catalog    CatalogSystem    @relation(fields: [catalogId], references: [id], onDelete: Restrict)
+
+  @@id([categoryId, catalogId])
+  @@map("equipment_categories_catalog")
+}
+
+model EquipmentCategoriesMcaa {
+  categoryId Int                 @map("category_id")
+  mcaaId     Int                 @map("mcaa_id")
+  category   EquipmentCategory    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  mcaa       McaaClassifications @relation(fields: [mcaaId], references: [id], onDelete: Restrict)
+
+  @@id([categoryId, mcaaId])
+  @@map("equipment_categories_mcaa")
+}
+
+// 3. LOCATIONS
+model Location {
+  id                  Int         @id @default(autoincrement())
+  buildingName        String?     @map("building_name")
+  floorLevel          String?     @map("floor_level")
+  roomName            String?     @map("room_name")
+  specificLocationInfo String?    @map("specific_location_info")
+  xCoordinate         Decimal?    @map("x_coordinate") @db.Decimal(10, 6)
+  yCoordinate         Decimal?    @map("y_coordinate") @db.Decimal(10, 6)
+  addressLine1        String?     @map("address_line1")
+  city                String?
+  stateProvince       String?     @map("state_province")
+  postalCode          String?     @map("postal_code")
+  country             String?
+  equipment           Equipment[]
+
+  @@map("locations")
+}
+
+// 4. EQUIPMENT (Core Table)
+model Equipment {
+  id                Int                   @id @default(autoincrement())
+  categoryId        Int                   @map("category_id")
+  locationId        Int                   @map("location_id")
+  equipmentTag      String                @unique @map("equipment_tag")
+  manufacturer      String?
+  model             String?
+  serialNumber      String?               @map("serial_number")
+  capacity          Float?
+  capacityUnit      String?               @map("capacity_unit")
+  installDate       DateTime?             @map("install_date") @db.Date
+  status            String?
+  planCode          String?               @map("plan_code")
+  tag               String?               
+  assetId           String?               @map("asset_id")
+  
+  // New fields
+  title             String?               @map("title")
+  systemTypeId      String?               @map("system_type_id")
+  equipNameId       String?               @map("equip_name_id")
+  trade             String?               @map("trade")
+  subSystemId       String?               @map("sub_system_id") 
+  subSystemType     String?               @map("sub_system_type")
+  subSystemClass    String?               @map("sub_system_class")
+  classId           String?               @map("class_id")
+  drawingAbbr       String?               @map("drawing_abbreviation")
+  preconTag         String?               @map("precon_tag")
+  serviceMaintHrs   Float?                @map("service_maintenance_hrs")
+  
+  attributes        Json?                 @db.JsonB
+  createdAt         DateTime              @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime              @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  // Relations
+  category          EquipmentCategory      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  location          Location               @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  costs             EquipmentCost[]
+  tco               EquipmentTco?
+  projects          EquipmentProject[]
+  documents         EquipmentDocument[]
+  maintenance       Maintenance[]
+  controlBoardItems ControlBoardItem[]
+  qualityControl    QualityControlRecord[]
+  surveys           Survey[]
+
+  @@index([categoryId])
+  @@index([locationId])
+  @@index([status])
+  @@index([installDate])
+  @@index([attributes], type: Gin)
+  @@map("equipment")
+}
+
+// 5. EQUIPMENT COSTS
+model EquipmentCost {
+  id          Int      @id @default(autoincrement())
+  equipmentId Int      @map("equipment_id")
+  costDate    DateTime @default(now()) @map("cost_date") @db.Date
+  costType    String   @map("cost_type")
+  amount      Decimal  @db.Decimal(12, 2)
+  currency    String   @default("USD")
+  comments    String?
+  recordedAt  DateTime @default(now()) @map("recorded_at") @db.Timestamptz()
+  
+  // Relations
+  equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@index([equipmentId])
+  @@map("equipment_costs")
+}
+
+// 6. TOTAL COST OF OWNERSHIP (TCO)
+model AshraeServiceLife {
+  id                      Int           @id @default(autoincrement())
+  equipmentTypeDescription String       @unique @map("equipment_type_description")
+  medianLifeExpectancyYears Int         @map("median_life_expectancy_years")
+  sourceReference         String?       @default("ASHRAE") @map("source_reference")
+  notes                   String?
+  equipmentTco            EquipmentTco[]
+
+  @@map("ashrae_service_life")
+}
+
+model EquipmentTco {
+  id                        Int                @id @default(autoincrement())
+  equipmentId               Int                @unique @map("equipment_id")
+  ashraeServiceLifeId       Int?               @map("ashrae_service_life_id")
+  assetCondition            Int?               @map("asset_condition")
+  failureLikelihood         Int?               @map("failure_likelihood")
+  assetCriticality          Int?               @map("asset_criticality")
+  conditionScore            Decimal?           @map("condition_score") @db.Decimal(5, 2)
+  riskCategory              String?            @map("risk_category")
+  estimatedServiceLifeYears Int?               @map("estimated_service_life_years")
+  estimatedReplacementDate  DateTime?          @map("estimated_replacement_date") @db.Date
+  lifecycleStatus           String?            @map("lifecycle_status")
+  firstCost                 Decimal?           @map("first_cost") @db.Decimal(12, 2)
+  accumulatedMaintenanceCost Decimal?          @map("accumulated_maintenance_cost") @db.Decimal(12, 2)
+  estimatedReplacementCost  Decimal?           @map("estimated_replacement_cost") @db.Decimal(12, 2)
+  estimatedAnnualEnergyCost Decimal?           @map("estimated_annual_energy_cost") @db.Decimal(12, 2)
+  lastAssessmentDate        DateTime?          @map("last_assessment_date") @db.Date
+  assessedBy                String?            @map("assessed_by")
+  notes                     String?
+  createdAt                 DateTime           @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt                 DateTime           @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  // Relations
+  equipment                 Equipment          @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  ashraeServiceLife         AshraeServiceLife? @relation(fields: [ashraeServiceLifeId], references: [id], onDelete: SetNull)
+
+  @@index([equipmentId])
+  @@index([ashraeServiceLifeId])
+  @@map("equipment_tco")
+}
+
+// 7. PROJECTS AND PHASES
+model Project {
+  id           Int                @id @default(autoincrement())
+  name         String
+  startDate    DateTime?          @map("start_date") @db.Date
+  endDate      DateTime?          @map("end_date") @db.Date
+  description  String?
+  projectNumber String?           @unique @map("project_number")
+  status       String?
+  
+  // Relations
+  phases       ProjectPhase[]
+  equipment    EquipmentProject[]
+  documents    ProjectDocument[]
+
+  @@index([status])
+  @@map("projects")
+}
+
+model ProjectPhase {
+  id          Int               @id @default(autoincrement())
+  projectId   Int               @map("project_id")
+  phaseCode   String?           @map("phase_code")
+  title       String
+  startDate   DateTime?         @map("start_date") @db.Date
+  endDate     DateTime?         @map("end_date") @db.Date
+  description String?
+  
+  // Relations
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  documents   ProjectDocument[]
+
+  @@index([projectId])
+  @@map("project_phases")
+}
+
+model EquipmentProject {
+  equipmentId    Int       @map("equipment_id")
+  projectId      Int       @map("project_id")
+  roleOrStatus   String?   @map("role_or_status")
+  associatedDate DateTime? @map("associated_date") @db.Date
+  
+  // Relations
+  equipment      Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@id([equipmentId, projectId])
+  @@index([projectId])
+  @@map("equipment_projects")
+}
+
+// 8. DOCUMENTATION MANAGEMENT
+model DocumentType {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  description        String?
+  
+  // Relations
+  projectDocuments   ProjectDocument[]
+  equipmentDocuments EquipmentDocument[]
+
+  @@map("document_types")
+}
+
+model ProjectDocument {
+  id          Int           @id @default(autoincrement())
+  projectId   Int           @map("project_id")
+  phaseId     Int?          @map("phase_id")
+  docTypeId   Int           @map("doc_type_id")
+  name        String
+  filePath    String        @map("file_path")
+  fileType    String?       @map("file_type")
+  uploadDate  DateTime      @default(now()) @map("upload_date") @db.Date
+  version     String?
+  uploadedBy  String?       @map("uploaded_by")
+  description String?
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz()
+  
+  // Relations
+  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  phase       ProjectPhase? @relation(fields: [phaseId], references: [id], onDelete: SetNull)
+  docType     DocumentType  @relation(fields: [docTypeId], references: [id], onDelete: Restrict)
+
+  @@index([projectId])
+  @@index([phaseId])
+  @@index([docTypeId])
+  @@map("project_documents")
+}
+
+model EquipmentDocument {
+  id          Int          @id @default(autoincrement())
+  equipmentId Int          @map("equipment_id")
+  docTypeId   Int          @map("doc_type_id")
+  name        String
+  filePath    String       @map("file_path")
+  fileType    String?      @map("file_type")
+  uploadDate  DateTime     @default(now()) @map("upload_date") @db.Date
+  version     String?
+  uploadedBy  String?      @map("uploaded_by")
+  description String?
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz()
+  
+  // Relations
+  equipment   Equipment    @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  docType     DocumentType @relation(fields: [docTypeId], references: [id], onDelete: Restrict)
+
+  @@index([equipmentId])
+  @@index([docTypeId])
+  @@map("equipment_documents")
+}
+
+// 9. MAINTENANCE
+model Maintenance {
+  id              Int               @id @default(autoincrement())
+  equipmentId     Int               @map("equipment_id")
+  maintenanceDate DateTime          @map("maintenance_date") @db.Date
+  maintenanceType String            @map("maintenance_type")
+  workPerformed   String            @map("work_performed")
+  technician      String?
+  nextDueDate     DateTime?         @map("next_due_date") @db.Date
+  durationHours   Decimal?          @map("duration_hours") @db.Decimal(6, 2)
+  comments        String?
+  recordedAt      DateTime          @default(now()) @map("recorded_at") @db.Timestamptz()
+  
+  // Relations
+  equipment       Equipment         @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  costs           MaintenanceCost[]
+
+  @@index([equipmentId])
+  @@index([maintenanceDate])
+  @@index([maintenanceType])
+  @@map("maintenance")
+}
+
+model MaintenanceCost {
+  id            Int         @id @default(autoincrement())
+  maintenanceId Int         @map("maintenance_id")
+  costType      String      @map("cost_type")
+  amount        Decimal     @db.Decimal(12, 2)
+  currency      String      @default("USD")
+  comments      String?
+  recordedAt    DateTime    @default(now()) @map("recorded_at") @db.Timestamptz()
+  
+  // Relations
+  maintenance   Maintenance @relation(fields: [maintenanceId], references: [id], onDelete: Cascade)
+
+  @@index([maintenanceId])
+  @@map("maintenance_costs")
+}
+
+// 10. CONTROL BOARD ITEMS
+model ControlBoardItem {
+  id               Int                  @id @default(autoincrement())
+  equipmentId      Int                  @map("equipment_id")
+  itemName         String               @map("item_name")
+  description      String?
+  locationOnBoard  String?              @map("location_on_board")
+  setPoint         String?              @map("set_point")
+  normalRange      String?              @map("normal_range")
+  units            String?
+  createdAt        DateTime             @default(now()) @map("created_at") @db.Timestamptz()
+  
+  // Relations
+  equipment        Equipment            @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  images           ControlBoardImage[]
+
+  @@index([equipmentId])
+  @@map("control_board_items")
+}
+
+model ControlBoardImage {
+  id            Int              @id @default(autoincrement())
+  controlItemId Int              @map("control_item_id")
+  imagePath     String           @map("image_path")
+  imageType     String?          @map("image_type")
+  captureDate   DateTime?        @map("capture_date") @db.Date
+  description   String?
+  createdAt     DateTime         @default(now()) @map("created_at") @db.Timestamptz()
+  
+  // Relations
+  controlItem   ControlBoardItem @relation(fields: [controlItemId], references: [id], onDelete: Cascade)
+
+  @@index([controlItemId])
+  @@map("control_board_images")
+}
+
+// 11. QUALITY CONTROL
+model QualityControlType {
+  id               Int                   @id @default(autoincrement())
+  name             String                @unique
+  description      String?
+  responsibleDept  String?               @map("responsible_dept")
+  requiresApproval Boolean               @default(false) @map("requires_approval")
+  
+  // Relations
+  records          QualityControlRecord[]
+
+  @@map("quality_control_types")
+}
+
+model QualityControlRecord {
+  id           Int                @id @default(autoincrement())
+  equipmentId  Int                @map("equipment_id")
+  qcTypeId     Int                @map("qc_type_id")
+  recordDate   DateTime           @default(now()) @map("record_date") @db.Date
+  status       String
+  verifiedBy   String?            @map("verified_by")
+  notes        String?
+  approvedBy   String?            @map("approved_by")
+  approvalDate DateTime?          @map("approval_date") @db.Date
+  createdAt    DateTime           @default(now()) @map("created_at") @db.Timestamptz()
+  
+  // Relations
+  equipment    Equipment          @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  qcType       QualityControlType @relation(fields: [qcTypeId], references: [id], onDelete: Restrict)
+
+  @@index([equipmentId])
+  @@index([qcTypeId])
+  @@index([status])
+  @@map("quality_control_records")
+}
+
+// Legacy models - keeping for backward compatibility
+model LegacyEquipment {
+  id          String       @id @default(cuid())
+  tag         String       @unique
+  name        String
+  label       String
+  description String
+  category    String
+  location    String?
+  control     String
+  condition   Condition
+  status      Status
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relation to Project
+  projectId   String
+  project     LegacyProject @relation(fields: [projectId], references: [id])
+
+  @@map("legacy_equipment")
+}
+
+model LegacyProject {
+  id          String           @id @default(cuid())
+  name        String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  equipment   LegacyEquipment[]
+
+  @@map("legacy_projects")
+}
+
+enum Condition {
+  good
+  bad
+  broken
+  new
+}
+
+enum Status {
+  active
+  inactive
+  out_of_service @map("out-of-service")
+}
+
+// 12. SURVEY SYSTEM
+model SurveyTemplate {
+  id              Int       @id @default(autoincrement())
+  name            String    @unique // e.g., "AHU Survey", "Boiler Survey"
+  description     String?
+  baseFields      Json      @map("base_fields") @db.JsonB // Common fields structure
+  specificFields  Json      @map("specific_fields") @db.JsonB // Equipment-specific fields structure
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime  @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  // Relations
+  surveys         Survey[]
+
+  @@map("survey_templates")
+}
+
+model Survey {
+  id              Int            @id @default(autoincrement())
+  equipmentId     Int            @map("equipment_id")
+  templateId      Int            @map("template_id")
+  surveyDate      DateTime       @default(now()) @map("survey_date") @db.Date
+  preparedBy      String         @map("prepared_by")
+  surveyData      Json           @map("survey_data") @db.JsonB // All survey data in flexible JSON format
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt       DateTime       @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  // Relations
+  equipment       Equipment      @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  template        SurveyTemplate @relation(fields: [templateId], references: [id], onDelete: Restrict)
+
+  @@index([equipmentId])
+  @@index([templateId])
+  @@map("surveys")
+}
+
+// VECTOR DATA MODELS
+// Based on Excel file analysis
+// These models represent the data from the vectordata.xlsx file
+
+// VectorProject model - from the "project" sheet
+model VectorProject {
+  id                Int       @id @default(autoincrement())
+  modelKey          String    @map("model_key") // From modelId.modelKey
+  version           Int       @map("version") // From modelId.version
+  name              String
+  estimateDate      DateTime? @map("estimate_date")
+  projectType       String?   @map("project_type") // From projectTypeName
+  startDate         DateTime? @map("start_date")
+  endDate           DateTime? @map("end_date")
+  generalContractor String?   @map("general_contractor") // From "General Contractor"
+  owner             String?
+  engineer          String?
+  contractType      String?   @map("contract_type") // From contractTypeName
+  budgetType        String?   @map("budget_type") // From budgetTypeName
+  budgetPhase       String?   @map("budget_phase") // From "Budget Phase"
+  region            String?
+  notes             String?
+  
+  // Financial information
+  salesTaxRate      Float?    @map("sales_tax_rate")
+  bond              Float?
+  design            Float?
+  contingency       Float?
+  permit            Float?
+  feeRecap          Float?    @map("fee_recap")
+  overallFee        Float?    @map("overall_fee")
+  escalation        Float?
+  
+  // Labor rates
+  plumbingFieldRate       Float?    @map("plumbing_field_rate")
+  pipefittingFieldRate    Float?    @map("pipefitting_field_rate")
+  sheetMetalShopRate      Float?    @map("sheet_metal_shop_rate")
+  sheetMetalFieldRate     Float?    @map("sheet_metal_field_rate")
+  plumbingFieldMCAFactor  Float?    @map("plumbing_field_mca_factor")
+  pipefittingFieldMCAFactor Float?  @map("pipefitting_field_mca_factor")
+  sheetMetalShopMCAFactor Float?    @map("sheet_metal_shop_mca_factor")
+  sheetMetalFieldMCAFactor Float?   @map("sheet_metal_field_mca_factor")
+  
+  // Logistics
+  milesFromFabShopToJobSite Int?    @map("miles_from_fab_shop_to_job_site")
+  
+  // Relationships
+  areas              VectorArea[]
+  gccowItems         VectorGCCOW[]
+  
+  // Metadata
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  @@unique([modelKey, version])
+  @@map("vector_projects")
+}
+
+// VectorArea model - from the "area" sheet
+model VectorArea {
+  id                Int       @id @default(autoincrement())
+  modelKey          String    @map("model_key")
+  version           Int
+  preconProjectModelKey String @map("precon_project_model_key")
+  preconProjectVersion Int     @map("precon_project_version")
+  
+  // Area information
+  name              String?   @map("area_name") // From "Area Name"
+  areaNumber        String?   @map("area_number")
+  squareFootage     Float?    @map("square_footage") // From "Square Footage"
+  areaDesignation   String?   @map("area_designation") // From "Area Designation"
+  projectName       String?   @map("project_name") // From "Project Name"
+  projectArea       String?   @map("project_area") // From "Project - Area"
+  projectDesignation String?  @map("project_designation") // From "Project Designation"
+  projectType       String?   @map("project_type") // From "Project Type"
+  dateEstimated     DateTime? @map("date_estimated") // From "Date Estimated"
+  
+  // HVAC information
+  hvac              String?
+  cooling           String?
+  heating           String?
+  terminalUnits     String?   @map("terminal_units")
+  centralCooling    String?   @map("central_cooling") // From "Central Cooling"
+  condenser         String?
+  specialty         String?
+  centralHeating    String?   @map("central_heating") // From "Central Heating"
+  efficiency        String?
+  notes             String?
+  
+  // Relationships
+  project           VectorProject? @relation(fields: [preconProjectModelKey, preconProjectVersion], references: [modelKey, version])
+  items             VectorItem[]
+  
+  // Metadata
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  @@unique([modelKey, version])
+  @@index([preconProjectModelKey, preconProjectVersion])
+  @@map("vector_areas")
+}
+
+// VectorItem model - from the "item_breakdown" sheet
+model VectorItem {
+  id                Int       @id @default(autoincrement())
+  
+  // Model and version information
+  modelKey          String
+  version           Int
+  preconAreaModelKey String    @map("precon_area_model_key")
+  preconAreaVersion Int        @map("precon_area_version")
+  
+  // Equipment information
+  equipmentTag      String?    @map("equipment_tag")
+  item              String?
+  className         String?    @map("class_name")
+  unit              String?
+  quantity          Float?     @map("qty")
+  // From "Qty"
+  capacity          String?
+  
+  // Cost information
+  subtotal          Float?
+  materialCost      Float?     @map("material_cost")
+  fieldLabor        Float?     @map("field_labor")
+  // From "Field Labor"
+  salesTax          Float?     @map("sales_tax")
+  indirects         Float?
+  fieldLaborCost    Float?     @map("field_labor_cost")
+  shopLabor         Float?     @map("shop_labor")
+  // From "Shop Labor"
+  shopLaborCost     Float?     @map("shop_labor_cost")
+  equipmentCost     Float?     @map("equipment_cost")
+  contingency       Float?
+  escMaterialCost   Float?     @map("esc_material_cost")
+  // From "Esc Material Cost"
+  escEquipmentCost  Float?     @map("esc_equipment_cost")
+  // From "Esc Equipment Cost"
+  
+  // Trade and system information
+  breakoutTrade     String?    @map("breakout_trade")
+  // From "Breakout Trade"
+  breakoutGroup     String?    @map("breakout_group")
+  // From "Breakout Group"
+  trade1            String?
+  breakout          String?
+  system            String?
+  tradeGroup        String?    @map("trade_group")
+  // From "Trade (group)"
+  tag               String?
+  trade             String?
+  
+  // Location information
+  area              String?
+  
+  // Relationships
+  vectorArea        VectorArea? @relation(fields: [preconAreaModelKey, preconAreaVersion], references: [modelKey, version])
+  
+  // Metadata
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  @@index([preconAreaModelKey, preconAreaVersion])
+  @@map("vector_items")
+}
+
+// VectorGCCOW model - from the "gccow" sheet (General Contractor Cost of Work)
+model VectorGCCOW {
+  id                Int       @id @default(autoincrement())
+  modelKey          String    @map("model_key")
+  version           Int
+  preconProjectModelKey String @map("precon_project_model_key")
+  preconProjectVersion Int     @map("precon_project_version")
+  
+  // Item information
+  subTotalCost      Float?    @map("sub_total_cost")
+  trade             String?
+  category          String?
+  item              String?
+  rate              Float?
+  rateUnit          String?   @map("rate_unit")
+  costClass         String?   @map("cost_class")
+  quantity          Float?
+  duration          Float?
+  durationUnit      String?   @map("duration_unit")
+  cost              Float?
+  
+  // Relationships
+  project           VectorProject? @relation(fields: [preconProjectModelKey, preconProjectVersion], references: [modelKey, version])
+  
+  // Metadata
+  createdAt         DateTime   @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt         DateTime   @default(now()) @map("updated_at") @db.Timestamptz()
+  
+  @@index([preconProjectModelKey, preconProjectVersion])
+  @@map("vector_gccow")
+}
